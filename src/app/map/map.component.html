@@ -1,0 +1,7 @@
+<div *ngIf="!loaded"> Map is not loaded yet </div>
+<div *ngIf="loaded && !locationAccess"> Error with accessing your coordinates </div>
+<div> {{latitude + " " + longitude }}</div>
+
+<div *ngIf="loaded && locationAccess"> <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0"
+        marginwidth="0" [src]="source" style="border: 1px solid black"></iframe>
+</div>
