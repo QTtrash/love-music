@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  CLIENT_ID: '703c19f15d3c4187871a8d382dfa160e',
+  REDIRECT_URI: 'http://localhost:4200',
+  AUTH_ENDPOINT: 'https://accounts.spotify.com/authorize',
+  RESPONSE_TYPE: 'token',
 };
 
 /*
