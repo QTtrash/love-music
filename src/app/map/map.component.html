@@ -1,6 +1,8 @@
 <div *ngIf="!loaded"> Map is not loaded yet </div>
 <div *ngIf="loaded && !locationAccess"> Error with accessing your coordinates </div>
 <div> {{latitude + " " + longitude }}</div>
+<div> Artist Name: {{ currentlyPlaying ? currentlyPlaying.item.artists[0].name : "Loading"}}</div>
+<div> Song Name: {{ currentlyPlaying ? currentlyPlaying.item.name : "Loading"}}</div>
 
 <span *ngIf="loaded && locationAccess">
     <div class="map" leaflet [leafletOptions]="options">

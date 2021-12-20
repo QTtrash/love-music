@@ -59,10 +59,7 @@ export class MapComponent implements OnInit {
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
-      observe: 'body',
-      responseType: 'json',
     });
-    console.log(this.currentlyPlaying);
   }
 
   errorCallback() {
