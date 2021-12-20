@@ -14,6 +14,9 @@ export class MapComponent implements OnInit {
   locationAccess = false;
   latitude = 0;
   longitude = 0;
+  currentlyPlaying: any = undefined;
+  hash: any = undefined;
+  token: any = undefined;
 
   // Define our base layers so we can reference them multiple times
   streetMaps = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -39,6 +42,12 @@ export class MapComponent implements OnInit {
   };
   constructor(private mapService: MapService) {}
 
+  showCurrentlyPlaying(options: any) {
+    this.mapService
+      .getCurrentlyPlaying(options)
+      .subscribe((data) => (this.currentlyPlaying = { ...data }));
+  }
+
   successCallback({ longitude, latitude }: Coordinates) {
     this.latitude = latitude;
     this.longitude = longitude;
@@ -46,6 +55,14 @@ export class MapComponent implements OnInit {
     this.locationAccess = true;
     this.options.center = latLng([this.latitude, this.longitude]);
     this.user.setLatLng([this.latitude, this.longitude]);
+    this.showCurrentlyPlaying({
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+      observe: 'body',
+      responseType: 'json',
+    });
+    console.log(this.currentlyPlaying);
   }
 
   errorCallback() {
@@ -54,6 +71,20 @@ export class MapComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.hash = window.location.hash;
+    //this.token = window.localStorage.getItem('token');
+    if (this.hash && !this.token) {
+      this.token = this.hash
+        .substring(1)
+        .split('&')
+        .find((elem: string) => elem.startsWith('access_token'))
+        .split('=')[1];
+
+      //window.location.hash = '';
+      //window.localStorage.setItem('token', this.token);
+    }
+    console.log('HASH:        ', this.hash);
+    console.log('TOKEN:        ', this.token);
     this.mapService.getLocation(
       (coordinates: Coordinates) => this.successCallback(coordinates),
       this.errorCallback

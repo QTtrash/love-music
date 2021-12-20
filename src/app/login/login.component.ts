@@ -12,5 +12,5 @@ export class LoginComponent {
   REDIRECT_URI = environment['REDIRECT_URI'];
   AUTH_ENDPOINT = environment['AUTH_ENDPOINT'];
   RESPONSE_TYPE = environment['RESPONSE_TYPE'];
-  loginLink = `${this.AUTH_ENDPOINT}?client_id=${this.CLIENT_ID}&redirect_uri=${this.REDIRECT_URI}&response_type=${this.RESPONSE_TYPE}`;
+  loginLink = `${this.AUTH_ENDPOINT}?client_id=${this.CLIENT_ID}&redirect_uri=${this.REDIRECT_URI}&response_type=${this.RESPONSE_TYPE}&scope=user-read-currently-playing%20user-read-playback-position`;
 }
