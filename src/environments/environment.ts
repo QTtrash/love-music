@@ -8,6 +8,7 @@ export const environment = {
   REDIRECT_URI: 'http://localhost:4200',
   AUTH_ENDPOINT: 'https://accounts.spotify.com/authorize',
   RESPONSE_TYPE: 'token',
+  API_BASE_URL: 'http://localhost:3001',
 };
 
 /*

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from 'src/environments/environment';
 export interface Coordinates {
   latitude: number;
   longitude: number;
@@ -12,6 +12,8 @@ export interface Coordinates {
 })
 export class MapService {
   constructor(private http: HttpClient) {}
+
+  API_BASE_URL = environment['API_BASE_URL'];
 
   currentlyPlayingUrl =
     'https://api.spotify.com/v1/me/player/currently-playing';
@@ -32,5 +34,9 @@ export class MapService {
       console.log('No support for geolocation');
       errorCallback();
     }
+  }
+
+  getAllUsers() {
+    return this.http.get(`${this.API_BASE_URL}/users`);
   }
 }

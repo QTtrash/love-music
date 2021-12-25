@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MapService } from './map.service';
 import { Coordinates } from './map.service';
 import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
+import { IUser } from '../interfaces/user.interface';
 
 @Component({
   selector: 'map-component',
@@ -17,6 +18,7 @@ export class MapComponent implements OnInit {
   currentlyPlaying: any = undefined;
   hash: any = undefined;
   token: any = undefined;
+  users: IUser[] | undefined = undefined;
 
   // Define our base layers so we can reference them multiple times
   streetMaps = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -48,6 +50,10 @@ export class MapComponent implements OnInit {
       .subscribe((data) => (this.currentlyPlaying = { ...data }));
   }
 
+  showAllUsers() {
+    this.mapService.getAllUsers().subscribe((data: any) => (this.users = data));
+  }
+
   successCallback({ longitude, latitude }: Coordinates) {
     this.latitude = latitude;
     this.longitude = longitude;
@@ -67,6 +73,7 @@ export class MapComponent implements OnInit {
     this.locationAccess = false;
   }
 
+  //TODO: Refactor into separate functions
   async ngOnInit() {
     this.hash = window.location.hash;
     //this.token = window.localStorage.getItem('token');
@@ -86,5 +93,6 @@ export class MapComponent implements OnInit {
       (coordinates: Coordinates) => this.successCallback(coordinates),
       this.errorCallback
     );
+    this.showAllUsers();
   }
 }

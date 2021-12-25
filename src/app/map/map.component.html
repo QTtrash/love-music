@@ -4,6 +4,10 @@
 <div> Artist Name: {{ currentlyPlaying ? currentlyPlaying.item.artists[0].name : "Loading"}}</div>
 <div> Song Name: {{ currentlyPlaying ? currentlyPlaying.item.name : "Loading"}}</div>
 
+<div>
+    <span *ngFor="let user of users"> {{user.username + " "}}</span>
+</div>
+
 <span *ngIf="loaded && locationAccess">
     <div class="map" leaflet [leafletOptions]="options">
     </div>
